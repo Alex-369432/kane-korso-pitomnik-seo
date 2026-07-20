@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t d">
+  <title id="t">Место для фото взрослой собаки-производителя</title>
+  <desc id="d">Плейсхолдер — заменить на реальную фотографию перед публикацией</desc>
+  <rect width="400" height="300" fill="#ece2d3"/>
+  <rect x="1" y="1" width="398" height="298" fill="none" stroke="#e2d7c6" stroke-width="2"/>
+  <text x="50%" y="50%" font-family="Georgia, serif" font-size="20" fill="#6b6058" text-anchor="middle">Фото собаки</text>
+  <text x="50%" y="88%" font-family="-apple-system,Arial,sans-serif" font-size="12" fill="#97711a" text-anchor="middle">заглушка — заменить на реальный снимок</text>
+</svg>
