@@ -262,6 +262,12 @@ section.block.alt { background: var(--color-bg-alt); }
 .puppy-card:hover { box-shadow: var(--shadow-card-hover); }
 .puppy-photo { aspect-ratio: 4/3; background: var(--color-bg-alt); position: relative; overflow: hidden; }
 .puppy-photo img { width: 100%; height: 100%; object-fit: cover; }
+.puppy-photo-note {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 20px; box-sizing: border-box;
+}
+.puppy-photo-note p { margin: 0; font-size: 0.92rem; color: var(--color-text-muted); }
+.puppy-photo-note a { color: var(--color-accent-dark); font-weight: 600; }
 .puppy-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
 .puppy-body h3 { margin: 0 0 6px; font-size: 1.1rem; }
 .puppy-meta { list-style: none; padding: 0; margin: 0 0 14px; font-size: 0.92rem; color: var(--color-text-muted); display: grid; gap: 4px; }
