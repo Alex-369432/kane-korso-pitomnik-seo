@@ -26,6 +26,22 @@
   var firstFaq = document.querySelector(".faq-q");
   if (firstFaq) firstFaq.click();
 
+  // Видео-отзывы: лёгкий facade — превью YouTube без загрузки плеера,
+  // сам iframe вставляется только по клику пользователя.
+  document.querySelectorAll(".video-embed").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var id = btn.getAttribute("data-video-id");
+      if (!id) return;
+      var iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+      iframe.title = btn.getAttribute("aria-label") || "Видео-отзыв";
+      iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      btn.innerHTML = "";
+      btn.appendChild(iframe);
+    });
+  });
+
   // Простая обработка форм без бэкенда: показать сообщение об успехе.
   // ВАЖНО: перед публикацией подключите реальный обработчик формы
   // (email-сервис, CRM или action на серверный обработчик).
