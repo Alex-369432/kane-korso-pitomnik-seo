@@ -42,18 +42,50 @@
     });
   });
 
-  // Простая обработка форм без бэкенда: показать сообщение об успехе.
-  // ВАЖНО: перед публикацией подключите реальный обработчик формы
-  // (email-сервис, CRM или action на серверный обработчик).
-  document.querySelectorAll("form[data-contact-form]").forEach(function (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var success = form.parentElement.querySelector(".form-success");
-      if (success) {
-        success.classList.add("is-visible");
-        success.setAttribute("role", "status");
+  // Копирование готового текста сообщения по кнопке [data-copy].
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var target = document.querySelector(btn.getAttribute("data-copy"));
+      if (!target) return;
+      var text = target.textContent.trim();
+      var done = function () {
+        var old = btn.textContent;
+        btn.textContent = "Скопировано ✓";
+        setTimeout(function () { btn.textContent = old; }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+      } else {
+        fallbackCopy(text, done);
       }
-      form.reset();
     });
+  });
+
+  function fallbackCopy(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  // Цели Метрики: клики по мессенджерам/звонку — считаем отдельно по каждому каналу.
+  var YM_COUNTER_ID = 111137125;
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a");
+    if (!a || !a.href) return;
+    var href = a.href;
+    var goal = null;
+    if (href.indexOf("wa.me") !== -1) goal = "click_whatsapp";
+    else if (href.indexOf("t.me") !== -1) goal = "click_telegram";
+    else if (href.indexOf("max.ru") !== -1) goal = "click_max";
+    else if (href.indexOf("vk.me") !== -1 || href.indexOf("vk.ru") !== -1 || href.indexOf("vk.com") !== -1) goal = "click_vk";
+    else if (href.indexOf("instagram.com") !== -1) goal = "click_instagram";
+    else if (href.indexOf("sms:") === 0) goal = "click_sms";
+    else if (href.indexOf("tel:") === 0) goal = "click_phone";
+    if (goal && typeof ym === "function") ym(YM_COUNTER_ID, "reachGoal", goal);
   });
 })();
