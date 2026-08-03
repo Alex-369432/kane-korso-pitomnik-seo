@@ -1,5 +1,2 @@
 User-agent: *
 Allow: /
-
-Host: https://cane-corso-pitomnik.ru
-Sitemap: https://cane-corso-pitomnik.ru/sitemap.xml
